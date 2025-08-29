@@ -1,0 +1,5 @@
+---
+# Default variables for NFS server role
+nfs_export_path: "/home"
+nfs_security: "sec=krb5p"
+oddjobd_enabled: true

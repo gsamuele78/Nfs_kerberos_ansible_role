@@ -1,0 +1,5 @@
+---
+- include_tasks: install.yml
+- include_tasks: autofs.yml
+- include_tasks: check_config.yml
+- include_tasks: mount.yml

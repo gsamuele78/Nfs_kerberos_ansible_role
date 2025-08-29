@@ -1,0 +1,6 @@
+---
+# Include tasks for server role
+- include_tasks: install.yml
+- include_tasks: spn_keytab.yml
+- include_tasks: exports.yml
+- include_tasks: check_config.yml

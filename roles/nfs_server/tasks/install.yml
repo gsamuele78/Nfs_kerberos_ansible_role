@@ -1,0 +1,16 @@
+---
+- name: Install NFS server and helper packages
+  apt:
+    name:
+      - nfs-kernel-server
+      - oddjob-mkhomedir
+      - oddjobd
+    state: present
+    update_cache: yes
+
+- name: Ensure oddjobd is enabled and running
+  systemd:
+    name: oddjobd
+    state: started
+    enabled: true
+  when: oddjobd_enabled

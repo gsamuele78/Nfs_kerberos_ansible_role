@@ -1,0 +1,15 @@
+---
+- name: Install autofs and NFS client
+  apt:
+    name:
+      - autofs
+      - nfs-common
+    state: present
+    update_cache: yes
+
+- name: Ensure autofs service running
+  systemd:
+    name: autofs
+    state: restarted
+    enabled: true
+  when: autofs_mounts is defined and autofs_mounts | length > 0

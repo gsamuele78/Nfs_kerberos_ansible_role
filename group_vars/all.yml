@@ -1,0 +1,6 @@
+# This file can be encrypted with Ansible Vault
+vault_test_ad_user: "testuser"
+vault_test_ad_password: "SuperSecretPassword"
+nfs_server_fqdn: "nfs-server.example.com"
+home_export: "/home"
+autofs_timeout: 60

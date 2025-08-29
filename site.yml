@@ -1,0 +1,15 @@
+---
+- name: Deploy NFS Kerberos roles
+  hosts: all
+  become: yes
+  roles:
+    - role: nfs_server
+      when: "'nfs_server' in group_names"
+    - role: nfs_client
+      when: "'nfs_client' in group_names"
+  vars:
+    nfs_server_fqdn: "nfs.example.com"
+    home_export: "/home"
+    autofs_timeout: 60
+    autofs_mounts:
+      - home  # Enables /home automount via autofs  

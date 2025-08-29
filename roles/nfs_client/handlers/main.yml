@@ -1,0 +1,7 @@
+---
+- name: restart autofs
+  systemd:
+    name: autofs
+    state: restarted
+    enabled: true
+  listen: restart autofs

@@ -1,0 +1,16 @@
+---
+- name: Check local keytab for nfs principal
+  command: klist -k /etc/krb5.keytab
+  register: local_keytab
+  changed_when: false
+  failed_when: false
+
+- name: Ensure nfs principal exists in keytab using adcli
+  shell: |
+    adcli keytab add --principal=nfs/{{ nfs_server_fqdn }}@{{ ansible_fqdn | upper }} --keytab=/etc/krb5.keytab
+  args:
+    creates: /etc/krb5.keytab  # idempotent safeguard
+  register: keytab_add
+  changed_when: "'Added' in keytab_add.stdout or 'updated' in keytab_add.stdout"
+  failed_when: keytab_add.rc != 0
+  when: "'nfs/{{ nfs_server_fqdn }}@{{ ansible_fqdn | upper }}' not in local_keytab.stdout"

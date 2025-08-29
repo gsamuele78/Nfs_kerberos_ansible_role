@@ -1,0 +1,16 @@
+---
+- name: Create autofs master map for /home
+  copy:
+    dest: /etc/auto.master.d/home.autofs
+    content: "/home   /etc/auto.home --timeout={{ autofs_timeout }} --browse"
+  notify: restart autofs
+
+- name: Create autofs map for NFS homes
+  copy:
+    dest: /etc/auto.home
+    content: "*   -fstype=nfs4,rw,sec=krb5p   {{ nfs_server_fqdn }}:/home/&"
+  owner: root
+  group: root
+  mode: '0644'
+  notify: restart autofs
+  when: autofs_mounts is defined and autofs_mounts | length > 0

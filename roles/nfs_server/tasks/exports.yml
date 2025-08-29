@@ -1,0 +1,13 @@
+---
+- name: Ensure NFS export is present in /etc/exports
+  copy:
+    dest: /etc/exports
+    content: "{{ nfs_export_path }} *(rw,{{ nfs_security }},no_subtree_check)"
+  notify: reload nfs
+
+- name: Ensure nfs-server is running
+  systemd:
+    name: nfs-server
+    state: started
+    enabled: true
+  when: nfs_export_path is defined and nfs_security is defined

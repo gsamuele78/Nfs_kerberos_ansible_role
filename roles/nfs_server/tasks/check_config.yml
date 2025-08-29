@@ -1,0 +1,17 @@
+---
+- name: Check SSSD config for NFS integration
+  command: grep -i 'nfs' /etc/sssd/sssd.conf
+  register: sssd_check
+  changed_when: false
+  failed_when: false
+
+- name: Check krb5.conf for default_realm
+  command: grep 'default_realm' /etc/krb5.conf
+  register: krb5_check
+  changed_when: false
+  failed_when: false
+- name: Display SSSD and Kerberos configuration status
+  debug:
+    msg: |
+      SSSD NFS Integration: {{ 'Configured' if sssd_check.rc == 0 else 'Not Configured' }}
+      Kerberos Default Realm: {{ krb5_check.stdout if krb5_check.rc == 0 else 'Not Found' }}  
