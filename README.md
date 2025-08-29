@@ -1,6 +1,6 @@
 # Nfs_kerberos_ansible_role
 Install nfs client and server joined with sssd
-
+```
 nfs_kerberos_ansible/
 ├── README.md
 ├── ansible.cfg
@@ -30,4 +30,5 @@ nfs_kerberos_ansible/
     ├── ADMIN_GUIDE.md
     ├── TROUBLESHOOTING.md
     └── ARCHITECTURE.md
+```
 
